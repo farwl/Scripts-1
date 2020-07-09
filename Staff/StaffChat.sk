@@ -16,7 +16,7 @@ on chat:
 command /sc [<text>]:
 	description: Private staff chat.
 	permission: staffchat.use
-	permission message: &cYou do not have sufficient permission.
+	permission message: &cInsufficient permission.
 	aliases: /staffchat
 	trigger:
 		if arg-1 is not set:
