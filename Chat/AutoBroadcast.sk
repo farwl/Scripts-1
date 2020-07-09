@@ -14,23 +14,21 @@ every 5 minutes:
 		broadcast ""
 		add 1 to {autobroadcast}
 
-command /bc [<text>]:
+command /bc <text>:
 	aliases: /broadcast
+	usage: &c/bc <message/toggle>
 	permission: broadcast.admin
 	permission message: &cInsufficient permission.
 	trigger:
-		if arg-1 is not set:
-			send "&c/bc <message/toggle>"
-		else:
-			if arg-1 is "toggle":
-				if {autobroadcast} is not false:
-					set {autobroadcast} to false
-					send "&cAuto broadcasting has been disabled."
-				else:
-					set {autobroadcast} to 1
-					send "&aAuto broadcasting has been enabled."
+		if arg-1 is "toggle":
+			if {autobroadcast} is not false:
+				set {autobroadcast} to false
+				send "&cAuto broadcasting has been disabled."
 			else:
-				broadcastMessage(arg-1)
+				set {autobroadcast} to 1
+				send "&aAuto broadcasting has been enabled."
+		else:
+			broadcastMessage(arg-1)
 
 function broadcastMessage(m: text):
 	broadcast ""
