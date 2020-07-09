@@ -29,7 +29,7 @@ command /chat [<text>]:
 
 function clearChat(p: player):
 	loop 600 times:
-		broadcast " "
+		send " " to all players
 	broadcast "&7Chat has been cleared by &3%{_p}%&7."
 
 function muteChat(p: player):
