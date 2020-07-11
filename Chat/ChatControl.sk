@@ -11,21 +11,19 @@ on chat:
 			cancel event
 			message "&cYou can not talk while the chat is muted."
 
-command /chat [<text>]:
+command /chat <text>:
 	description: Command used for anything chat-related.
 	permission: {@staffPerm}
 	permission message: &cInsufficient permission.
+	usage: &c/chat <clear/lock>
 	aliases: /c
 	trigger:
-		if arg-1 is not set:
-			send "&c/chat <clear/lock>"
+		if arg-1 is "clear":
+			clearChat(player)
+		else if arg-1 is "lock" or "mute":
+			muteChat(player)
 		else:
-			if arg-1 is "clear":
-				clearChat(player)
-			else if arg-1 is "lock" or "mute":
-				muteChat(player)
-			else:
-				execute player command "chat"
+			execute player command "chat"
 
 function clearChat(p: player):
 	loop 600 times:
