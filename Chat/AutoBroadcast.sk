@@ -2,17 +2,16 @@
 # No dependencies required.
 # Made by BennyDoesStuff
 
-on unload:
-	clear {autobroadcast}
+on load:
+	updateBroadcasts()
 
 every 5 minutes:
-	if {autobroadcast} is not set:
-		set {autobroadcast} to 1
 	if {autobroadcast} is not false:
-		broadcast ""
-		broadcast autoBroadcast({autobroadcast})
-		broadcast ""
-		add 1 to {autobroadcast}
+		set {_size} to size of {broadcasts::*}
+		broadcastMessage({broadcasts::%{_size}%})
+		remove {broadcasts::%{_size}%} from {broadcasts::*}
+		if size of {broadcasts::*} is 0:
+			updateBroadcasts()
 
 command /bc <text>:
 	aliases: /broadcast
@@ -23,10 +22,10 @@ command /bc <text>:
 		if arg-1 is "toggle":
 			if {autobroadcast} is not false:
 				set {autobroadcast} to false
-				send "&cAuto broadcasting has been disabled."
+				send "&cAuto broadcast has been disabled."
 			else:
-				set {autobroadcast} to 1
-				send "&aAuto broadcasting has been enabled."
+				clear {autobroadcast}
+				send "&aAuto broadcast has been enabled."
 		else:
 			broadcastMessage(arg-1)
 
@@ -35,13 +34,9 @@ function broadcastMessage(m: text):
 	broadcast colored {_m}
 	broadcast ""
 
-function autoBroadcast(n: number) :: text:
-	if {_n} is 1:
-		return "&bChange Broadcast Message here"
-	else if {_n} is 2:
-		return "&bEdit the Broadcasts in this area"
-	else if {_n} is 3:
-		return "&bCustomize Broadcast Message here"
-	else:
-		set {autobroadcast} to 0
-		return "&bUpdate the broadcasts here"
+function updateBroadcasts():
+	clear {broadcasts::*}
+	add "&bChange Broadcast Message here" to {broadcasts::*}
+	add "&bEdit the Broadcasts in this area" to {broadcasts::*}
+	add "&bCustomize Broadcast Message here" to {broadcasts::*}
+	add "&bUpdate the broadcasts here" to {broadcasts::*}
