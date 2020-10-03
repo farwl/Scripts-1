@@ -14,10 +14,11 @@ every 5 minutes:
 			updateBroadcasts()
 
 command /bc <text>:
-	aliases: /broadcast
-	usage: &c/bc <message/toggle>
+	description: Main admin command for broadcasts.
 	permission: broadcast.admin
 	permission message: &cInsufficient permission.
+	usage: &c/bc <message/toggle>
+	aliases: /broadcast
 	trigger:
 		if arg-1 is "toggle":
 			if {autobroadcast} is not false:
