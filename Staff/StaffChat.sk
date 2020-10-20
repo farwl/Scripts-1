@@ -2,6 +2,9 @@
 # No dependencies required.
 # Made by BennyDoesStuff
 
+Options:
+	prefix: &8[&cSTAFF&8]
+
 on unload:
 	clear {sctoggle::*}
 
@@ -31,4 +34,4 @@ command /sc [<text>]:
 			staffChat(player, arg-1)
 
 function staffChat(p: player, m: text):
-	send "&8[&cSTAFF&8] &c%{_p}% &8» &r%{_m}%" to all players where [input has permission "staffchat.use"]
+	send "{@prefix} &c%{_p}% &8» &r%{_m}%" to all players where [input has permission "staffchat.use"]
